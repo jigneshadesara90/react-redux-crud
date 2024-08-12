@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class UserList extends React.Component {
   render() {

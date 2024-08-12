@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 function Login() {
   return (
     <div className="container d-flex align-items-center justify-content-center">

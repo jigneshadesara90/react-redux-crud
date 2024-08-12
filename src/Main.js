@@ -10,9 +10,9 @@ import Logout from "./Logout";
 import Register from "./Register";
 import RegisterSuccessful from "./RegisterSuccessful";
 
+import EditUser from "./EditUser";
 import Nav from "./Nav";
 import UserList from "./UserList";
-import EditUser from "./EditUser";
 
 class Main extends React.Component {
   render() {
