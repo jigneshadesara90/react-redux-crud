@@ -2,6 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default class UserList extends React.Component {
+  constructor() {
+    // lifecycle 1
+    super();
+    console.log("constructor");
+    this.state = {
+      users: [],
+    };
+  }
+
+  componentDidMount() {
+    // call after render method, lifecycle 3
+
+    this.setState({
+      users: localStorage.getItem("users")
+        ? JSON.parse(localStorage.getItem("users"))
+        : [],
+    });
+  }
+
   render() {
     return (
       <div className="container">
@@ -9,8 +28,8 @@ export default class UserList extends React.Component {
           <div className="col text-center">
             <h1 className="h3 mb-3 font-weight-normal mt-5">Users</h1>
 
-            <table className="table">
-              <thead>
+            <table className="table table-bordered table-hover">
+              <thead class="table-secondary">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
@@ -19,30 +38,69 @@ export default class UserList extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Jignesh</td>
-                  <td>jigneshadesara90@gmail.com</td>
-                  <td>
-                    <Link
-                      to="userEdit"
-                      role="button"
-                      className="btn btn-primary btn-sm"
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      type="button"
-                      className="btn btn-secondary btn-sm"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
+                {this.state.users.map((user, index) => (
+                  <tr key={index}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>
+                      <Link
+                        to={`userEdit/${user.id}`}
+                        role="button"
+                        className="btn btn-primary btn-sm m-2"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        type="button"
+                        className="btn btn-secondary btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <div
+          className="modal fade"
+          id="exampleModal"
+          tabIndex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Confirm User Delete</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure?</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary">
+                  Ok
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

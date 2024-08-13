@@ -1,6 +1,25 @@
 import React from "react";
 
 export default class LoginSuccessful extends React.Component {
+  constructor() {
+    // lifecycle 1
+    super();
+    console.log("constructor");
+    this.state = {
+      loggedUser: {},
+    };
+  }
+
+  componentDidMount() {
+    // call after render method, lifecycle 3
+
+    this.setState({
+      loggedUser: localStorage.getItem("loggedUser")
+        ? JSON.parse(localStorage.getItem("loggedUser"))
+        : {},
+    });
+  }
+
   render() {
     return (
       <div className="container d-flex justify-content-center">
@@ -9,7 +28,7 @@ export default class LoginSuccessful extends React.Component {
             <h1 className="h3 mb-3 font-weight-normal mt-5">
               Login Successful
             </h1>
-            <h5>Welcome ! jigneshadesara90@gmail.com</h5>
+            <h5>Welcome ! {this.state.loggedUser?.email}</h5>
           </div>
         </div>
       </div>

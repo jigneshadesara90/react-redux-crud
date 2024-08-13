@@ -23,7 +23,7 @@ function Nav() {
                 <NavLink
                   className="nav-link"
                   to="groupChat"
-                  exact
+                  exact="true"
                   activeclassname="active"
                 >
                   Group Chat
@@ -33,7 +33,7 @@ function Nav() {
                 <NavLink
                   className="nav-link"
                   to="userList"
-                  exact
+                  exact="true"
                   activeclassname="active"
                 >
                   Manage Users
@@ -43,7 +43,7 @@ function Nav() {
                 <NavLink
                   className="nav-link"
                   to="documentList"
-                  exact
+                  exact="true"
                   activeclassname="active"
                 >
                   Manage Documents
@@ -53,7 +53,7 @@ function Nav() {
                 <NavLink
                   className="nav-link"
                   to="/logout"
-                  exact
+                  exact="true"
                   activeclassname="active"
                 >
                   Logout

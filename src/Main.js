@@ -29,7 +29,7 @@ class Main extends React.Component {
             <Route path="/home/groupChat" element={<ChatList />} />
             <Route path="/home/userList" element={<UserList />} />
             <Route path="/home/documentList" element={<DocumentList />} />
-            <Route path="/home/userList/userEdit" element={<EditUser />} />
+            <Route path="/home/userList/userEdit/:id" element={<EditUser />} />
           </Route>
         </Routes>
       </BrowserRouter>

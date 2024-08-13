@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 function Logout() {
+  localStorage.removeItem("loggedUser");
+
   return (
     <div className="container d-flex align-items-center justify-content-center">
       <div className="row">
