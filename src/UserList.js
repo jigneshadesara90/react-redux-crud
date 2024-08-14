@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Modal } from "bootstrap";
 
 export default class UserList extends React.Component {
   constructor() {
@@ -8,18 +9,52 @@ export default class UserList extends React.Component {
     console.log("constructor");
     this.state = {
       users: [],
+      activeUserId: "",
+      deleteModel: undefined,
+      loggedUser: localStorage.getItem("loggedUser")
+        ? JSON.parse(localStorage.getItem("loggedUser"))
+        : {},
     };
   }
 
   componentDidMount() {
     // call after render method, lifecycle 3
-
     this.setState({
       users: localStorage.getItem("users")
         ? JSON.parse(localStorage.getItem("users"))
         : [],
     });
   }
+
+  deleteUser = (activeUserId) => {
+    console.log("deleteUSer");
+    this.setState({
+      activeUserId,
+    });
+
+    const deleteModel = new Modal(document.getElementById("exampleModal"));
+    this.setState({
+      deleteModel,
+    });
+    deleteModel.show();
+  };
+
+  confirmDelete = () => {
+    const users = localStorage.getItem("users")
+      ? JSON.parse(localStorage.getItem("users"))
+      : [];
+
+    const newUsers = users.filter(
+      (user) => user.id !== this.state.activeUserId
+    );
+    this.setState({
+      users: newUsers,
+    });
+
+    localStorage.setItem("users", JSON.stringify(newUsers));
+
+    this.state.deleteModel.hide();
+  };
 
   render() {
     return (
@@ -29,7 +64,7 @@ export default class UserList extends React.Component {
             <h1 className="h3 mb-3 font-weight-normal mt-5">Users</h1>
 
             <table className="table table-bordered table-hover">
-              <thead class="table-secondary">
+              <thead className="table-secondary">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
@@ -51,14 +86,17 @@ export default class UserList extends React.Component {
                       >
                         Edit
                       </Link>
-                      <button
-                        type="button"
-                        className="btn btn-secondary btn-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                      >
-                        Delete
-                      </button>
+                      {user.id !== this.state.loggedUser.id ? (
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => this.deleteUser(user.id)}
+                        >
+                          Delete
+                        </button>
+                      ) : (
+                        ""
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -67,13 +105,7 @@ export default class UserList extends React.Component {
           </div>
         </div>
 
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+        <div className="modal fade" id="exampleModal" tabIndex="-1">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -89,13 +121,17 @@ export default class UserList extends React.Component {
                 <p>Are you sure?</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => this.confirmDelete()}
+                >
                   Ok
                 </button>
                 <button
                   type="button"
                   className="btn btn-secondary"
-                  data-dismiss="modal"
+                  data-bs-dismiss="modal"
                 >
                   Cancel
                 </button>

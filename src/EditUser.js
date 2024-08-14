@@ -1,63 +1,102 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 export default class EditUser extends React.Component {
+  constructor() {
+    // lifecycle 1
+    super();
+    console.log("constructor");
+    this.state = {
+      user: {},
+    };
+    // this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const locations = window.location.href.split("/");
+    const id = locations[locations.length - 1];
+    const users = localStorage.getItem("users")
+      ? JSON.parse(localStorage.getItem("users"))
+      : [];
+
+    const user = users.find((user) => user.id + "" === id) || {};
+    this.setState({
+      user,
+    });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault(); // stop page refresh
+    const id = this.state.user.id;
+    const name = event.target.elements.name.value;
+    const email = event.target.elements.email.value;
+    const password = this.state.user.password;
+    const confirmpassword = this.state.user.confirmpassword;
+    let users = localStorage.getItem("users")
+      ? JSON.parse(localStorage.getItem("users"))
+      : [];
+
+    const user = {
+      id,
+      name,
+      email,
+      password,
+      confirmpassword,
+    };
+
+    const updatedUSers = users.map((item) => {
+      return item.id === user.id ? user : item;
+    });
+
+    localStorage.setItem("users", JSON.stringify(updatedUSers));
+
+    window.location.href = "/home/userlist";
+  };
+
+  getState() {
+    return this.state;
+  }
+
   render() {
     return (
       <div className="container d-flex a justify-content-center">
         <div className="row">
           <div className="col text-center">
-            <h1 className="h3 mb-3 font-weight-normal mt-5">Edit User</h1>
+            <form onSubmit={this.handleSubmit}>
+              <h1 className="h3 mb-3 font-weight-normal mt-5">Edit User</h1>
 
-            <label htmlFor="inputName" className="sr-only">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="inputName"
-              className="form-control mb-3"
-              placeholder="Full Name"
-              required
-              autoFocus
-            />
-            <label htmlFor="inputEmail" className="sr-only">
-              Email address
-            </label>
-            <input
-              type="email"
-              id="inputEmail"
-              className="form-control mb-3"
-              placeholder="Email address"
-              required
-              autoFocus
-            />
-            <label htmlFor="inputPassword" className="sr-only">
-              Password
-            </label>
-            <input
-              type="password"
-              id="inputPassword"
-              className="form-control mb-3"
-              placeholder="Password"
-              required
-            />
-            <label htmlFor="inputPassword" className="sr-only">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="inputPassword"
-              className="form-control mb-3"
-              placeholder="Confirm Password"
-              required
-            />
+              <label htmlFor="name" className="sr-only">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="form-control mb-3"
+                placeholder="Full Name"
+                defaultValue={this.state.user.name || ""}
+                required
+                autoFocus
+              />
+              <label htmlFor="email" className="sr-only">
+                Email address
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="form-control mb-3"
+                placeholder="Email address"
+                defaultValue={this.state.user.email || ""}
+                required
+                autoFocus
+              />
 
-            <Link
-              to="/home/userlist"
-              className="btn btn-lg btn-primary"
-              role="button"
-            >
-              Save
-            </Link>
+              <input
+                type="submit"
+                className="btn btn-lg btn-primary"
+                value="Save"
+              />
+            </form>
           </div>
         </div>
       </div>

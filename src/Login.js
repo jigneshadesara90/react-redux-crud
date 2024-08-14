@@ -13,12 +13,12 @@ const Login = () => {
       ? JSON.parse(localStorage.getItem("users"))
       : [];
 
-    const filter = users.filter(
+    const user = users.find(
       (user) => user.email === email && user.password === password
     );
-    if (filter?.length) {
+    if (user?.email) {
       navigation("/home", { replace: true });
-      localStorage.setItem("loggedUser", JSON.stringify(filter[0]));
+      localStorage.setItem("loggedUser", JSON.stringify(user));
     } else {
       alert("invalid username or password");
     }

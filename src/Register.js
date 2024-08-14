@@ -10,23 +10,32 @@ function Register() {
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
     const confirmpassword = event.target.elements.confirmpassword.value;
-
     let users = localStorage.getItem("users")
       ? JSON.parse(localStorage.getItem("users"))
       : [];
 
-    const user = {
-      id: Number(new Date()),
-      name,
-      email,
-      password,
-      confirmpassword,
-    };
+    const verify = users.find(
+      (user) => user.email === email && user.password === password
+    );
 
-    users.push(user); // push item inside array
-    localStorage.setItem("users", JSON.stringify(users));
+    if (password !== confirmpassword) {
+      alert("Password and Confirm Password not matching");
+    } else if (verify?.email) {
+      alert("User already exists");
+    } else {
+      const user = {
+        id: Number(new Date()),
+        name,
+        email,
+        password,
+        confirmpassword,
+      };
 
-    navigation("/registerSuccessful", { replace: true });
+      users.push(user); // push item inside array
+      localStorage.setItem("users", JSON.stringify(users));
+
+      navigation("/registerSuccessful", { replace: true });
+    }
   };
 
   return (
