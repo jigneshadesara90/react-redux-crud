@@ -17,22 +17,30 @@ import UserList from "./UserList";
 class Main extends React.Component {
   render() {
     return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/registerSuccessful" element={<RegisterSuccessful />} />
-          <Route path="/home" element={<Nav />}>
-            <Route index element={<LoginSuccessful />} />
-            <Route path="/home/groupChat" element={<ChatList />} />
-            <Route path="/home/userList" element={<UserList />} />
-            <Route path="/home/documentList" element={<DocumentList />} />
-            <Route path="/home/userList/userEdit/:id" element={<EditUser />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/registerSuccessful"
+              element={<RegisterSuccessful />}
+            />
+            <Route path="/home" element={<Nav />}>
+              <Route index element={<LoginSuccessful />} />
+              <Route path="/home/groupChat" element={<ChatList />} />
+              <Route path="/home/userList" element={<UserList />} />
+              <Route path="/home/documentList" element={<DocumentList />} />
+              <Route
+                path="/home/userList/userEdit/:id"
+                element={<EditUser />}
+              />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </>
     );
   }
 }

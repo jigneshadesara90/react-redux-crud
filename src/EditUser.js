@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default class EditUser extends React.Component {
   constructor() {
@@ -49,7 +51,17 @@ export default class EditUser extends React.Component {
 
     localStorage.setItem("users", JSON.stringify(updatedUSers));
 
-    window.location.href = "/home/userlist";
+    toast.success("User updated successfully", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      onClose: () => (window.location.href = "/home/userlist"),
+    });
   };
 
   getState() {
@@ -58,48 +70,56 @@ export default class EditUser extends React.Component {
 
   render() {
     return (
-      <div className="container d-flex a justify-content-center">
-        <div className="row">
-          <div className="col text-center">
-            <form onSubmit={this.handleSubmit}>
-              <h1 className="h3 mb-3 font-weight-normal mt-5">Edit User</h1>
+      <>
+        <div className="container d-flex a justify-content-center">
+          <div className="row">
+            <div className="col text-center">
+              <form onSubmit={this.handleSubmit}>
+                <h1 className="h3 mb-3 font-weight-normal mt-5">Edit User</h1>
 
-              <label htmlFor="name" className="sr-only">
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-control mb-3"
-                placeholder="Full Name"
-                defaultValue={this.state.user.name || ""}
-                required
-                autoFocus
-              />
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="form-control mb-3"
-                placeholder="Email address"
-                defaultValue={this.state.user.email || ""}
-                required
-                autoFocus
-              />
+                <label htmlFor="name" className="sr-only">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="form-control mb-3"
+                  placeholder="Full Name"
+                  defaultValue={this.state.user.name || ""}
+                  required
+                  autoFocus
+                />
+                <label htmlFor="email" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="form-control mb-3"
+                  placeholder="Email address"
+                  defaultValue={this.state.user.email || ""}
+                  required
+                  autoFocus
+                />
 
-              <input
-                type="submit"
-                className="btn btn-lg btn-primary"
-                value="Save"
-              />
-            </form>
+                <input
+                  type="submit"
+                  className="btn btn-lg btn-primary"
+                  value="Save"
+                />
+                <Link
+                  className="btn btn-lg btn-primary m-3"
+                  to={`/home/userlist`}
+                >
+                  Cancel
+                </Link>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

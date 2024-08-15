@@ -89,7 +89,7 @@ export default class UserList extends React.Component {
                       {user.id !== this.state.loggedUser.id ? (
                         <button
                           type="button"
-                          className="btn btn-secondary btn-sm"
+                          className="btn btn-danger btn-sm"
                           onClick={() => this.deleteUser(user.id)}
                         >
                           Delete

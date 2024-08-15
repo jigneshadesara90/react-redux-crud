@@ -28,7 +28,7 @@ export default class LoginSuccessful extends React.Component {
             <h1 className="h3 mb-3 font-weight-normal mt-5">
               Login Successful
             </h1>
-            <h5>Welcome ! {this.state.loggedUser?.email}</h5>
+            <h5>Welcome! {this.state.loggedUser?.email}</h5>
           </div>
         </div>
       </div>
