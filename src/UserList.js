@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "bootstrap";
+import * as storage from "./storage";
 
 export default class UserList extends React.Component {
   constructor() {
@@ -20,9 +21,7 @@ export default class UserList extends React.Component {
   componentDidMount() {
     // call after render method, lifecycle 3
     this.setState({
-      users: localStorage.getItem("users")
-        ? JSON.parse(localStorage.getItem("users"))
-        : [],
+      users: storage.getUsers(),
     });
   }
 
@@ -40,9 +39,7 @@ export default class UserList extends React.Component {
   };
 
   confirmDelete = () => {
-    const users = localStorage.getItem("users")
-      ? JSON.parse(localStorage.getItem("users"))
-      : [];
+    const users = storage.getUsers();
 
     const newUsers = users.filter(
       (user) => user.id !== this.state.activeUserId

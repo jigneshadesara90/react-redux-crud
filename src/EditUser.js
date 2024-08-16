@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import * as storage from "./storage";
 
 export default class EditUser extends React.Component {
   constructor() {
@@ -16,9 +17,7 @@ export default class EditUser extends React.Component {
   componentDidMount() {
     const locations = window.location.href.split("/");
     const id = locations[locations.length - 1];
-    const users = localStorage.getItem("users")
-      ? JSON.parse(localStorage.getItem("users"))
-      : [];
+    const users = storage.getUsers();
 
     const user = users.find((user) => user.id + "" === id) || {};
     this.setState({
@@ -33,9 +32,7 @@ export default class EditUser extends React.Component {
     const email = event.target.elements.email.value;
     const password = this.state.user.password;
     const confirmpassword = this.state.user.confirmpassword;
-    let users = localStorage.getItem("users")
-      ? JSON.parse(localStorage.getItem("users"))
-      : [];
+    let users = storage.getUsers();
 
     const user = {
       id,

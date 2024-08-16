@@ -1,6 +1,7 @@
 import { Modal } from "bootstrap";
 import React from "react";
 import { toast } from "react-toastify";
+import * as storage from "./storage";
 
 export default class DocumentList extends React.Component {
   constructor() {
@@ -20,9 +21,7 @@ export default class DocumentList extends React.Component {
   componentDidMount() {
     // call after render method, lifecycle 3
     this.setState({
-      documents: localStorage.getItem("documents")
-        ? JSON.parse(localStorage.getItem("documents"))
-        : [],
+      documents: storage.getDocuments(),
     });
   }
 
@@ -31,11 +30,7 @@ export default class DocumentList extends React.Component {
       activeDocumentId,
     });
 
-    const documents = localStorage.getItem("documents")
-      ? JSON.parse(localStorage.getItem("documents"))
-      : [];
-
-    const doc = documents.find((doc) => doc.id === activeDocumentId) || {};
+    const doc = storage.getDocument(activeDocumentId);
     this.setState({
       document: doc,
     });
@@ -53,15 +48,7 @@ export default class DocumentList extends React.Component {
     const label = event.target.elements.label.value;
     const fileName = this.state.document.fileName;
 
-    let documents = localStorage.getItem("documents")
-      ? JSON.parse(localStorage.getItem("documents"))
-      : [];
-
-    const doc = {
-      id,
-      label,
-      fileName,
-    };
+    let documents = storage.getDocuments();
 
     if (!label) {
       toast.error("File Description missing", {
@@ -75,13 +62,15 @@ export default class DocumentList extends React.Component {
         theme: "colored",
       });
     } else {
-      const updateDoc = documents.map((item) => {
-        return item.id === doc.id ? doc : item;
-      });
+      const doc = {
+        id,
+        label,
+        fileName,
+      };
 
-      localStorage.setItem("documents", JSON.stringify(updateDoc));
+      storage.updateDocument(doc);
       this.setState({
-        documents: updateDoc,
+        documents: storage.getDocuments(),
       });
       this.state.editModal.hide();
       toast.success("Document updated successfully", {
@@ -121,18 +110,10 @@ export default class DocumentList extends React.Component {
   };
 
   confirmDelete = () => {
-    const documents = localStorage.getItem("documents")
-      ? JSON.parse(localStorage.getItem("documents"))
-      : [];
-
-    const newDocuments = documents.filter(
-      (document) => document.id !== this.state.activeDocumentId
-    );
+    storage.deleteDocument(this.state.activeDocumentId);
     this.setState({
-      documents: newDocuments,
+      documents: storage.getDocuments(),
     });
-
-    localStorage.setItem("documents", JSON.stringify(newDocuments));
 
     this.state.deleteModel.hide();
   };
@@ -141,10 +122,6 @@ export default class DocumentList extends React.Component {
     event.preventDefault(); // stop page refresh
     const label = event.target.elements.label.value;
     const fileName = event.target.elements.fileName?.files[0]?.name;
-
-    let documents = localStorage.getItem("documents")
-      ? JSON.parse(localStorage.getItem("documents"))
-      : [];
 
     if (!label) {
       toast.error("File Description missing", {
@@ -175,10 +152,10 @@ export default class DocumentList extends React.Component {
         fileName,
       };
 
-      documents.push(doc);
-      localStorage.setItem("documents", JSON.stringify(documents));
+      storage.addDocument(doc);
+
       this.setState({
-        documents,
+        documents: storage.getDocuments(),
       });
 
       toast.success("File upload successfully", {

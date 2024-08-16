@@ -1,5 +1,5 @@
 import React from "react";
-
+import * as storage from "./storage";
 export default class LoginSuccessful extends React.Component {
   constructor() {
     // lifecycle 1
@@ -14,9 +14,7 @@ export default class LoginSuccessful extends React.Component {
     // call after render method, lifecycle 3
 
     this.setState({
-      loggedUser: sessionStorage.getItem("loggedUser")
-        ? JSON.parse(sessionStorage.getItem("loggedUser"))
-        : {},
+      loggedUser: storage.getLoggedUser(),
     });
   }
 

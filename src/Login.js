@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import * as storage from "./storage";
 
 const Login = () => {
   const navigation = useNavigate();
@@ -11,9 +12,7 @@ const Login = () => {
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
 
-    const users = localStorage.getItem("users")
-      ? JSON.parse(localStorage.getItem("users"))
-      : [];
+    const users = storage.getUsers();
 
     const user = users.find(
       (user) => user.email === email && user.password === password

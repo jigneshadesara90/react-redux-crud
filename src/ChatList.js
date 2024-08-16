@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
+import * as storage from "./storage";
 
 export default class ChatList extends React.Component {
   constructor() {
@@ -8,17 +9,13 @@ export default class ChatList extends React.Component {
     console.log("constructor");
     this.state = {
       chats: [],
-      loggedUser: sessionStorage.getItem("loggedUser")
-        ? JSON.parse(sessionStorage.getItem("loggedUser"))
-        : {},
+      loggedUser: storage.getLoggedUser(),
     };
   }
 
   getChats() {
     this.setState({
-      chats: localStorage.getItem("chats")
-        ? JSON.parse(localStorage.getItem("chats"))
-        : [],
+      chats: storage.getChats(),
     });
   }
 
@@ -31,9 +28,7 @@ export default class ChatList extends React.Component {
     event.preventDefault();
     const message = event.target.elements.message.value;
 
-    let chats = localStorage.getItem("chats")
-      ? JSON.parse(localStorage.getItem("chats"))
-      : [];
+    let chats = storage.getChats();
 
     if (!message) {
       toast.error("Message should not be empty", {
@@ -54,9 +49,7 @@ export default class ChatList extends React.Component {
         message,
       };
 
-      chats.push(chat);
-      localStorage.setItem("chats", JSON.stringify(chats));
-
+      storage.addChat(chat);
       this.getChats();
 
       document.getElementById("chatForm").reset();
