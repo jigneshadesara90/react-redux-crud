@@ -11,8 +11,8 @@ export default class UserList extends React.Component {
       users: [],
       activeUserId: "",
       deleteModel: undefined,
-      loggedUser: localStorage.getItem("loggedUser")
-        ? JSON.parse(localStorage.getItem("loggedUser"))
+      loggedUser: sessionStorage.getItem("loggedUser")
+        ? JSON.parse(sessionStorage.getItem("loggedUser"))
         : {},
     };
   }

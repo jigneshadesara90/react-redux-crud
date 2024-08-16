@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 export default class EditUser extends React.Component {
   constructor() {
@@ -27,7 +27,7 @@ export default class EditUser extends React.Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault(); // stop page refresh
+    event.preventDefault();
     const id = this.state.user.id;
     const name = event.target.elements.name.value;
     const email = event.target.elements.email.value;
@@ -119,6 +119,7 @@ export default class EditUser extends React.Component {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </>
     );
   }

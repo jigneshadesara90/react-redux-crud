@@ -20,7 +20,7 @@ const Login = () => {
     );
     if (user?.email) {
       navigation("/home", { replace: true });
-      localStorage.setItem("loggedUser", JSON.stringify(user));
+      sessionStorage.setItem("loggedUser", JSON.stringify(user));
     } else {
       toast.error("invalid username or password", {
         position: "top-right",

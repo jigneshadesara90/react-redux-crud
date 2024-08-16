@@ -8,8 +8,8 @@ export default class ChatList extends React.Component {
     console.log("constructor");
     this.state = {
       chats: [],
-      loggedUser: localStorage.getItem("loggedUser")
-        ? JSON.parse(localStorage.getItem("loggedUser"))
+      loggedUser: sessionStorage.getItem("loggedUser")
+        ? JSON.parse(sessionStorage.getItem("loggedUser"))
         : {},
     };
   }

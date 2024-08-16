@@ -14,8 +14,8 @@ export default class LoginSuccessful extends React.Component {
     // call after render method, lifecycle 3
 
     this.setState({
-      loggedUser: localStorage.getItem("loggedUser")
-        ? JSON.parse(localStorage.getItem("loggedUser"))
+      loggedUser: sessionStorage.getItem("loggedUser")
+        ? JSON.parse(sessionStorage.getItem("loggedUser"))
         : {},
     });
   }

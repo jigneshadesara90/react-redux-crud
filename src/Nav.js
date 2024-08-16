@@ -7,8 +7,8 @@ function Nav() {
 
   useEffect(() => {
     setLoggedUser(
-      localStorage.getItem("loggedUser")
-        ? JSON.parse(localStorage.getItem("loggedUser"))
+      sessionStorage.getItem("loggedUser")
+        ? JSON.parse(sessionStorage.getItem("loggedUser"))
         : {}
     );
   }, []);
