@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import * as storage from "../../service/storage";
 
 export default class Welcome extends React.Component {
   componentDidMount() {
-    sessionStorage.removeItem("loggedUser");
+    storage.removeLoggedUser();
   }
 
   render() {

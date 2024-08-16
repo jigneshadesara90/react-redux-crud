@@ -1,8 +1,7 @@
 import React from "react";
-import * as storage from "./storage";
+import * as storage from "../../service/storage";
 export default class LoginSuccessful extends React.Component {
   constructor() {
-    // lifecycle 1
     super();
     console.log("constructor");
     this.state = {
@@ -11,8 +10,6 @@ export default class LoginSuccessful extends React.Component {
   }
 
   componentDidMount() {
-    // call after render method, lifecycle 3
-
     this.setState({
       loggedUser: storage.getLoggedUser(),
     });

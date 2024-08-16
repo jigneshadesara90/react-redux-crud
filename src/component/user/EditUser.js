@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import * as storage from "./storage";
+import * as storage from "../../service/storage";
 
 export default class EditUser extends React.Component {
   constructor() {
@@ -11,15 +11,13 @@ export default class EditUser extends React.Component {
     this.state = {
       user: {},
     };
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     const locations = window.location.href.split("/");
     const id = locations[locations.length - 1];
-    const users = storage.getUsers();
 
-    const user = users.find((user) => user.id + "" === id) || {};
+    const user = storage.getUser(+id);
     this.setState({
       user,
     });
@@ -32,7 +30,6 @@ export default class EditUser extends React.Component {
     const email = event.target.elements.email.value;
     const password = this.state.user.password;
     const confirmpassword = this.state.user.confirmpassword;
-    let users = storage.getUsers();
 
     const user = {
       id,
@@ -42,11 +39,7 @@ export default class EditUser extends React.Component {
       confirmpassword,
     };
 
-    const updatedUSers = users.map((item) => {
-      return item.id === user.id ? user : item;
-    });
-
-    localStorage.setItem("users", JSON.stringify(updatedUSers));
+    storage.updateUser(user);
 
     toast.success("User updated successfully", {
       position: "top-right",
@@ -70,13 +63,13 @@ export default class EditUser extends React.Component {
       <>
         <div className="container d-flex a justify-content-center">
           <div className="row">
-            <div className="col text-center">
+            <div className="col ">
               <form onSubmit={this.handleSubmit}>
-                <h1 className="h3 mb-3 font-weight-normal mt-5">Edit User</h1>
+                <h1 className="h3 mb-3 font-weight-normal mt-5 text-center">
+                  Edit User
+                </h1>
 
-                <label htmlFor="name" className="sr-only">
-                  Full Name
-                </label>
+                <label htmlFor="name">Full Name</label>
                 <input
                   type="text"
                   id="name"
@@ -87,9 +80,7 @@ export default class EditUser extends React.Component {
                   required
                   autoFocus
                 />
-                <label htmlFor="email" className="sr-only">
-                  Email address
-                </label>
+                <label htmlFor="email">Email address</label>
                 <input
                   type="email"
                   id="email"

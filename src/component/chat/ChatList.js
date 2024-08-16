@@ -1,10 +1,9 @@
 import React from "react";
 import { toast } from "react-toastify";
-import * as storage from "./storage";
+import * as storage from "../../service/storage";
 
 export default class ChatList extends React.Component {
   constructor() {
-    // lifecycle 1
     super();
     console.log("constructor");
     this.state = {
@@ -20,7 +19,6 @@ export default class ChatList extends React.Component {
   }
 
   componentDidMount() {
-    // call after render method, lifecycle 3
     this.getChats();
   }
 

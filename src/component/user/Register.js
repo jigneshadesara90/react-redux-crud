@@ -1,14 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import * as storage from "./storage";
+import * as storage from "../../service/storage";
 
 function Register() {
   const navigation = useNavigate();
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // stop page refresh
+    event.preventDefault();
     const name = event.target.elements.name.value;
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
@@ -50,8 +49,7 @@ function Register() {
         confirmpassword,
       };
 
-      users.push(user);
-      localStorage.setItem("users", JSON.stringify(users));
+      storage.addUser(user);
 
       navigation("/registerSuccessful", { replace: true });
     }

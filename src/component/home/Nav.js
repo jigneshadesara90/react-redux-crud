@@ -1,16 +1,11 @@
-import { NavLink, Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import * as storage from "../../service/storage";
 function Nav() {
-  const [loggedUser, setLoggedUser] = useState([]); // users1 is empty array
+  const [loggedUser, setLoggedUser] = useState([]);
 
   useEffect(() => {
-    setLoggedUser(
-      sessionStorage.getItem("loggedUser")
-        ? JSON.parse(sessionStorage.getItem("loggedUser"))
-        : {}
-    );
+    setLoggedUser(storage.getLoggedUser());
   }, []);
 
   return (

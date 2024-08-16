@@ -2,18 +2,27 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Welcome from "./Welcome";
 
-import ChatList from "./ChatList";
-import DocumentList from "./DocumentList";
-import Login from "./Login";
-import LoginSuccessful from "./LoginSuccessful";
-import Register from "./Register";
-import RegisterSuccessful from "./RegisterSuccessful";
+import ChatList from "../chat/ChatList";
+import DocumentList from "../document/DocumentList";
+import Login from "../user/Login";
+import LoginSuccessful from "../user/LoginSuccessful";
+import Register from "../user/Register";
+import RegisterSuccessful from "../user/RegisterSuccessful";
 
-import EditUser from "./EditUser";
+import * as storage from "../../service/storage";
+import EditUser from "../user/EditUser";
+import UserList from "../user/UserList";
 import Nav from "./Nav";
-import UserList from "./UserList";
 
 class Main extends React.Component {
+  constructor() {
+    super();
+    console.log("constructor");
+    this.state = {
+      loggedUser: storage.getLoggedUser(),
+    };
+  }
+
   render() {
     return (
       <>

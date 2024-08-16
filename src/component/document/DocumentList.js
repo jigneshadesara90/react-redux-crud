@@ -1,11 +1,10 @@
 import { Modal } from "bootstrap";
 import React from "react";
 import { toast } from "react-toastify";
-import * as storage from "./storage";
+import * as storage from "../../service/storage";
 
 export default class DocumentList extends React.Component {
   constructor() {
-    // lifecycle 1
     super();
     console.log("constructor");
     this.state = {
@@ -19,7 +18,6 @@ export default class DocumentList extends React.Component {
   }
 
   componentDidMount() {
-    // call after render method, lifecycle 3
     this.setState({
       documents: storage.getDocuments(),
     });
@@ -43,7 +41,7 @@ export default class DocumentList extends React.Component {
   };
 
   handleEdit = (event) => {
-    event.preventDefault(); // stop page refresh
+    event.preventDefault();
     const id = this.state.document.id;
     const label = event.target.elements.label.value;
     const fileName = this.state.document.fileName;
@@ -117,7 +115,7 @@ export default class DocumentList extends React.Component {
   };
 
   handleUpload = (event) => {
-    event.preventDefault(); // stop page refresh
+    event.preventDefault();
     const label = event.target.elements.label.value;
     const fileName = event.target.elements.fileName?.files[0]?.name;
 

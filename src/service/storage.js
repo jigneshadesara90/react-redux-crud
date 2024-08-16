@@ -1,3 +1,11 @@
+const setLoggedUser = (user) => {
+  sessionStorage.setItem("loggedUser", JSON.stringify(user));
+};
+
+const removeLoggedUser = () => {
+  sessionStorage.removeItem("loggedUser");
+};
+
 const getLoggedUser = () => {
   return sessionStorage.getItem("loggedUser")
     ? JSON.parse(sessionStorage.getItem("loggedUser"))
@@ -8,6 +16,36 @@ const getUsers = () => {
   return localStorage.getItem("users")
     ? JSON.parse(localStorage.getItem("users"))
     : [];
+};
+
+const getUser = (id) => {
+  const users = getUsers();
+
+  return users.find((user) => user.id === id) || {};
+};
+
+const addUser = (user) => {
+  const users = getUsers();
+
+  users.push(user);
+  localStorage.setItem("users", JSON.stringify(users));
+};
+
+const updateUser = (user) => {
+  const users = getUsers();
+
+  const updateUser = users.map((item) => {
+    return item.id === user.id ? user : item;
+  });
+
+  localStorage.setItem("users", JSON.stringify(updateUser));
+};
+
+const deleteUser = (id) => {
+  const users = getUsers();
+  const newUsers = users.filter((user) => user.id !== id) || [];
+
+  localStorage.setItem("users", JSON.stringify(newUsers));
 };
 
 const getDocuments = () => {
@@ -23,14 +61,14 @@ const getDocument = (id) => {
 };
 
 const addDocument = (doc) => {
-  let documents = getDocuments();
+  const documents = getDocuments();
 
   documents.push(doc);
   localStorage.setItem("documents", JSON.stringify(documents));
 };
 
 const updateDocument = (doc) => {
-  let documents = getDocuments();
+  const documents = getDocuments();
 
   const updateDoc = documents.map((item) => {
     return item.id === doc.id ? doc : item;
@@ -53,20 +91,13 @@ const getChats = () => {
 };
 
 const addChat = (chat) => {
-  let chats = getChats();
+  const chats = getChats();
 
   chats.push(chat);
   localStorage.setItem("chats", JSON.stringify(chats));
 };
 
 export {
-  getUsers,
-  getDocuments,
-  getDocument,
-  addDocument,
-  updateDocument,
-  deleteDocument,
-  getChats,
-  addChat,
-  getLoggedUser,
+  addChat, addDocument, addUser, deleteDocument, deleteUser, getChats, getDocument, getDocuments, getLoggedUser, getUser, getUsers, removeLoggedUser, setLoggedUser, updateDocument, updateUser
 };
+

@@ -2,13 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import * as storage from "./storage";
+import * as storage from "../../service/storage";
 
 const Login = () => {
   const navigation = useNavigate();
 
   const handleLogin = (event) => {
-    event.preventDefault(); // stop page refresh
+    event.preventDefault();
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
 
@@ -19,7 +19,7 @@ const Login = () => {
     );
     if (user?.email) {
       navigation("/home", { replace: true });
-      sessionStorage.setItem("loggedUser", JSON.stringify(user));
+      storage.setLoggedUser(user);
     } else {
       toast.error("invalid username or password", {
         position: "top-right",
@@ -38,13 +38,11 @@ const Login = () => {
     <>
       <div className="container d-flex align-items-center justify-content-center">
         <div className="row">
-          <div className="col text-center">
+          <div className="col">
             <form onSubmit={handleLogin}>
-              <h1 className="h3 mb-3 font-weight-normal">Login</h1>
+              <h1 className="h3 mb-3 font-weight-normal  text-center">Login</h1>
               <br />
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
+              <label htmlFor="email">Email address</label>
               <input
                 type="email"
                 id="email"
@@ -54,9 +52,7 @@ const Login = () => {
                 required
                 autoFocus
               />
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"

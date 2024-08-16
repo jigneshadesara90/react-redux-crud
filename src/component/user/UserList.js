@@ -1,25 +1,21 @@
+import { Modal } from "bootstrap";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Modal } from "bootstrap";
-import * as storage from "./storage";
+import * as storage from "../../service/storage";
 
 export default class UserList extends React.Component {
   constructor() {
-    // lifecycle 1
     super();
     console.log("constructor");
     this.state = {
       users: [],
       activeUserId: "",
       deleteModel: undefined,
-      loggedUser: sessionStorage.getItem("loggedUser")
-        ? JSON.parse(sessionStorage.getItem("loggedUser"))
-        : {},
+      loggedUser: storage.getLoggedUser(),
     };
   }
 
   componentDidMount() {
-    // call after render method, lifecycle 3
     this.setState({
       users: storage.getUsers(),
     });
@@ -39,16 +35,10 @@ export default class UserList extends React.Component {
   };
 
   confirmDelete = () => {
-    const users = storage.getUsers();
-
-    const newUsers = users.filter(
-      (user) => user.id !== this.state.activeUserId
-    );
+    storage.deleteUser(this.state.activeUserId);
     this.setState({
-      users: newUsers,
+      users: storage.getUsers(),
     });
-
-    localStorage.setItem("users", JSON.stringify(newUsers));
 
     this.state.deleteModel.hide();
   };
