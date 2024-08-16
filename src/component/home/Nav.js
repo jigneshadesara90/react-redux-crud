@@ -13,7 +13,7 @@ function Nav() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="" end activeclassname="active">
-            Dashboard
+            <img src="logo192.png" width="30" height="30"/>
           </NavLink>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
