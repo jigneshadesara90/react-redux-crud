@@ -6,7 +6,6 @@ import ChatList from "./ChatList";
 import DocumentList from "./DocumentList";
 import Login from "./Login";
 import LoginSuccessful from "./LoginSuccessful";
-import Logout from "./Logout";
 import Register from "./Register";
 import RegisterSuccessful from "./RegisterSuccessful";
 
@@ -21,7 +20,7 @@ class Main extends React.Component {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Welcome />} />
-            <Route path="/logout" element={<Logout />} />
+            <Route path="/logout" element={<Welcome logout="true" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route

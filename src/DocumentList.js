@@ -48,8 +48,6 @@ export default class DocumentList extends React.Component {
     const label = event.target.elements.label.value;
     const fileName = this.state.document.fileName;
 
-    let documents = storage.getDocuments();
-
     if (!label) {
       toast.error("File Description missing", {
         position: "top-right",

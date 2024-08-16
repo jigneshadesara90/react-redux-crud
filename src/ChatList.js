@@ -28,8 +28,6 @@ export default class ChatList extends React.Component {
     event.preventDefault();
     const message = event.target.elements.message.value;
 
-    let chats = storage.getChats();
-
     if (!message) {
       toast.error("Message should not be empty", {
         position: "top-right",

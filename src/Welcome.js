@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default class Welcome extends React.Component {
+  componentDidMount() {
+    sessionStorage.removeItem("loggedUser");
+  }
+
   render() {
     return (
       <div className="container d-flex align-items-center justify-content-center">
@@ -18,6 +22,12 @@ export default class Welcome extends React.Component {
             <Link to="/register" className="btn btn-lg btn-primary mt-3">
               Register
             </Link>
+
+            {this.props?.logout ? (
+              <h5 className="mt-3">You have been logged out</h5>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
