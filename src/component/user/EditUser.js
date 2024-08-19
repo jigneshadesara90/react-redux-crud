@@ -1,15 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { Link, Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as storage from "../../service/storage";
 
 export default class EditUser extends React.Component {
   constructor() {
     // lifecycle 1
     super();
-    console.log("constructor");
     this.state = {
       user: {},
+      redirect: false,
     };
   }
 
@@ -41,16 +41,10 @@ export default class EditUser extends React.Component {
 
     storage.updateUser(user);
 
-    toast.success("User updated successfully", {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      onClose: () => (window.location.href = "/home/userlist"),
+    toast.success("User updated successfully");
+
+    this.setState({
+      redirect: true,
     });
   };
 
@@ -59,8 +53,10 @@ export default class EditUser extends React.Component {
   }
 
   render() {
+    const redirect = this.state.redirect;
     return (
       <>
+        {redirect && <Navigate to="/home/userlist" />}
         <div className="container d-flex a justify-content-center">
           <div className="row">
             <div className="col ">
@@ -107,7 +103,6 @@ export default class EditUser extends React.Component {
             </div>
           </div>
         </div>
-        <ToastContainer />
       </>
     );
   }

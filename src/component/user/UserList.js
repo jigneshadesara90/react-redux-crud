@@ -1,16 +1,16 @@
 import { Modal } from "bootstrap";
 import React from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as storage from "../../service/storage";
 
 export default class UserList extends React.Component {
   constructor() {
     super();
-    console.log("constructor");
     this.state = {
       users: [],
       activeUserId: "",
-      deleteModel: undefined,
+      deleteModal: undefined,
       loggedUser: storage.getLoggedUser(),
     };
   }
@@ -22,16 +22,15 @@ export default class UserList extends React.Component {
   }
 
   deleteUser = (activeUserId) => {
-    console.log("deleteUSer");
     this.setState({
       activeUserId,
     });
 
-    const deleteModel = new Modal(document.getElementById("exampleModal"));
+    const deleteModal = new Modal(document.getElementById("deleteModal"));
     this.setState({
-      deleteModel,
+      deleteModal,
     });
-    deleteModel.show();
+    deleteModal.show();
   };
 
   confirmDelete = () => {
@@ -40,7 +39,9 @@ export default class UserList extends React.Component {
       users: storage.getUsers(),
     });
 
-    this.state.deleteModel.hide();
+    this.state.deleteModal.hide();
+
+    toast.success("User deleted successfully");
   };
 
   render() {
@@ -92,7 +93,7 @@ export default class UserList extends React.Component {
           </div>
         </div>
 
-        <div className="modal fade" id="exampleModal" tabIndex="-1">
+        <div className="modal fade" id="deleteModal" tabIndex="-1">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">

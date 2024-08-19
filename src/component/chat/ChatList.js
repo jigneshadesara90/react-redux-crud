@@ -5,7 +5,6 @@ import * as storage from "../../service/storage";
 export default class ChatList extends React.Component {
   constructor() {
     super();
-    console.log("constructor");
     this.state = {
       chats: [],
       loggedUser: storage.getLoggedUser(),
@@ -27,16 +26,7 @@ export default class ChatList extends React.Component {
     const message = event.target.elements.message.value;
 
     if (!message) {
-      toast.error("Message should not be empty", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("Message should not be empty");
     } else {
       const chat = {
         id: Number(new Date()),

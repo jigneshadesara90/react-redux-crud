@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import * as storage from "../../service/storage";
 
 function Register() {
@@ -19,27 +19,9 @@ function Register() {
     );
 
     if (password !== confirmpassword) {
-      toast.error("Password and Confirm Password not matching", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("Password and Confirm Password not matching");
     } else if (verify?.email) {
-      toast.error("User already exists", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("User already exists");
     } else {
       const user = {
         id: Number(new Date()),
@@ -52,6 +34,7 @@ function Register() {
       storage.addUser(user);
 
       navigation("/registerSuccessful", { replace: true });
+      toast.success("User registered successfully");
     }
   };
 
@@ -116,7 +99,6 @@ function Register() {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 }

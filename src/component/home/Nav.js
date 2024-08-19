@@ -1,19 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet } from "react-router-dom";
 import * as storage from "../../service/storage";
 function Nav() {
-  const [loggedUser, setLoggedUser] = useState([]);
-
-  useEffect(() => {
-    setLoggedUser(storage.getLoggedUser());
-  }, []);
-
   return (
     <>
+      {!storage.getLoggedUser()?.id && <Navigate to="/login" />}
+
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="" end activeclassname="active">
-            <img src="logo192.png" width="30" height="30"/>
+            <img src="../logo192.png" width="30" height="30" alt="home" />
           </NavLink>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -70,7 +65,7 @@ function Nav() {
             </ul>
             <ul className="navbar-nav d-flex flex-row me-1">
               <li className="nav-item me-3 me-lg-0 align-content-center text-white">
-                {loggedUser?.name}
+                {storage.getLoggedUser()?.name}
               </li>
               <li className="nav-item me-3 me-lg-0">
                 <Link className="nav-link text-white" to="/logout">

@@ -3,7 +3,6 @@ import * as storage from "../../service/storage";
 export default class LoginSuccessful extends React.Component {
   constructor() {
     super();
-    console.log("constructor");
     this.state = {
       loggedUser: {},
     };

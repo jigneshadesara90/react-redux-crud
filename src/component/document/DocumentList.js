@@ -6,7 +6,6 @@ import * as storage from "../../service/storage";
 export default class DocumentList extends React.Component {
   constructor() {
     super();
-    console.log("constructor");
     this.state = {
       documents: [],
       document: {},
@@ -47,16 +46,7 @@ export default class DocumentList extends React.Component {
     const fileName = this.state.document.fileName;
 
     if (!label) {
-      toast.error("File Description missing", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("File description is missing");
     } else {
       const doc = {
         id,
@@ -69,16 +59,7 @@ export default class DocumentList extends React.Component {
         documents: storage.getDocuments(),
       });
       this.state.editModal.hide();
-      toast.success("Document updated successfully", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.success("Document updated successfully");
     }
 
     document.getElementById("editForm").reset();
@@ -112,6 +93,8 @@ export default class DocumentList extends React.Component {
     });
 
     this.state.deleteModel.hide();
+
+    toast.success("Document deleted successfully");
   };
 
   handleUpload = (event) => {
@@ -120,27 +103,9 @@ export default class DocumentList extends React.Component {
     const fileName = event.target.elements.fileName?.files[0]?.name;
 
     if (!label) {
-      toast.error("File Description missing", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("File description is missing");
     } else if (!fileName) {
-      toast.error("Please Select File", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("Please select file");
     } else {
       const doc = {
         id: Number(new Date()),
@@ -154,16 +119,7 @@ export default class DocumentList extends React.Component {
         documents: storage.getDocuments(),
       });
 
-      toast.success("File upload successfully", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.success("File upload successfully");
 
       this.state.uploadModal.hide();
 

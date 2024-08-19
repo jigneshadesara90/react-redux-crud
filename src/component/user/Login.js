@@ -1,7 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as storage from "../../service/storage";
 
 const Login = () => {
@@ -18,19 +17,10 @@ const Login = () => {
       (user) => user.email === email && user.password === password
     );
     if (user?.email) {
-      navigation("/home", { replace: true });
       storage.setLoggedUser(user);
+      navigation("/home", { replace: true });
     } else {
-      toast.error("invalid username or password", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("invalid username or password");
     }
   };
 
@@ -73,7 +63,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 };

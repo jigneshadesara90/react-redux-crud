@@ -98,6 +98,20 @@ const addChat = (chat) => {
 };
 
 export {
-  addChat, addDocument, addUser, deleteDocument, deleteUser, getChats, getDocument, getDocuments, getLoggedUser, getUser, getUsers, removeLoggedUser, setLoggedUser, updateDocument, updateUser
+  addChat,
+  addDocument,
+  addUser,
+  deleteDocument,
+  deleteUser,
+  getChats,
+  getDocument,
+  getDocuments,
+  getLoggedUser,
+  getUser,
+  getUsers,
+  removeLoggedUser,
+  setLoggedUser,
+  updateDocument,
+  updateUser
 };
 
