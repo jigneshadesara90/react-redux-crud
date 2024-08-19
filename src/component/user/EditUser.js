@@ -43,9 +43,14 @@ export default class EditUser extends React.Component {
 
     toast.success("User updated successfully");
 
-    this.setState({
-      redirect: true,
-    });
+    if (storage.getLoggedUser().id === id) {
+      storage.setLoggedUser(storage.getUser(id));
+      window.location.href = "/home/userlist";
+    } else {
+      this.setState({
+        redirect: true,
+      });
+    }
   };
 
   getState() {
